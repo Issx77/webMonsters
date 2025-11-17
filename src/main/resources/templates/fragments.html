@@ -4,7 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
+<div th:fragment="header">
+
+</div>
+<footer th:fragment="footer">
+    <div class="footer-container">
+        <div class="footer-links">
+            <a th:href="@{/a-propos.html}">À propos</a>
+            <a th:href="@{/contact.html}">Contact</a>
+            <a th:href="@{/inscription.html}">Inscription</a>
+            <a th:href="@{/rgpd.html}">RGPD</a>
+        </div>
+        <p class="footer-copy">© 2025 Monster Web. Tous droits réservés.</p>
+    </div>
+</footer>
 
 </body>
+
 </html>

@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="base :: html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Web - Connexion</title>
+    <!-- ✅ Lien correct pour Spring Boot -->
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 
+<div th:fragment="content" class="login-container mx-auto">
+    <div class="logo">
+        <div class="logo-icon">🎮</div>
+        <div class="logo-title">MONSTER WEB</div>
+    </div>
+
+    <div class="welcome-text">
+        Connectez-vous pour commencer<br>votre aventure épique !
+    </div>
+
+    <div id="error-msg" class="error-message">
+        ❌ Identifiants incorrects
+    </div>
+
+    <div id="success-msg" class="success-message">
+        ✅ Connexion réussie ! Redirection...
+    </div>
+
+    <div class="form-group">
+        <label for="username">👤 Nom d'utilisateur</label>
+        <input type="text" id="username" placeholder="Entrez votre pseudo" autocomplete="username">
+    </div>
+
+    <div class="form-group">
+        <label for="password">🔒 Mot de passe</label>
+        <input type="password" id="password" placeholder="Entrez votre mot de passe" autocomplete="current-password">
+    </div>
+
+    <div class="checkbox-group">
+        <input type="checkbox" id="remember" checked>
+        <label for="remember">Se souvenir de moi</label>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="handleLogin()"><a th:href="@{/general.html}"><span>Connexion</span></a></button>
+        <button class="btn btn-secondary" onclick="handleRegister()">Inscription</button>
+    </div>
+
+    <div class="divider">
+        <span>OU CONTINUER AVEC</span>
+    </div>
+
+    <div class="social-login">
+        <button class="social-btn" onclick="socialLogin('Google')">
+            <span>🔍</span>
+            <span>Google</span>
+        </button>
+        <button class="social-btn" onclick="socialLogin('Discord')">
+            <span>💬</span>
+            <a th:href="@{/discord.html}"><span>Discord</span></a>
+        </button>
+    </div>
+
+    <div class="links">
+        <a href="#" onclick="forgotPassword()">Mot de passe oublié ?</a>
+        <span style="color: #444;">|</span>
+        <a href="#" onclick="guestMode()">Mode invité</a>
+    </div>
+
+
+</div>
+
+<script src="login.js"></script>
+
 </body>
+
+
 </html>
