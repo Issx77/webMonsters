@@ -26,15 +26,15 @@
     <div id="success-msg" class="success-message">
         ✅ Connexion réussie ! Redirection...
     </div>
-
+    <form action="/WebMonster/login" method="post">
     <div class="form-group">
         <label for="username">👤 Nom d'utilisateur</label>
-        <input type="text" id="username" placeholder="Entrez votre pseudo" autocomplete="username">
+        <input name="username" type="text" id="username" placeholder="Entrez votre pseudo" autocomplete="username">
     </div>
 
     <div class="form-group">
         <label for="password">🔒 Mot de passe</label>
-        <input type="password" id="password" placeholder="Entrez votre mot de passe" autocomplete="current-password">
+        <input name="password" type="password" id="password" placeholder="Entrez votre mot de passe" autocomplete="current-password">
     </div>
 
     <div class="checkbox-group">
@@ -43,9 +43,10 @@
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-primary" onclick="handleLogin()"><a th:href="@{/general.html}"><span>Connexion</span></a></button>
-        <button class="btn btn-secondary" onclick="handleRegister()">Inscription</button>
+        <button type="submit" class="btn btn-primary" onclick="handleLogin()"><a th:href="@{/general.html}"><span>Connexion</span></a></button>
+        <a class="btn btn-secondary" onclick="handleRegister()">Inscription</a>
     </div>
+    </form>
 
     <div class="divider">
         <span>OU CONTINUER AVEC</span>
