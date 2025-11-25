@@ -15,7 +15,7 @@ class MainController (){
      * Méthode permettant d'afficher la page d'accueil de l'application.
      * @return le chemin vers le template a partir du dossier ressources/templates (on ne marque pas le .html)
      */
-    @GetMapping("/WebMonster")
+    @GetMapping("/WebMonster","/WebMonster/login")
     fun home():String{
         return "index"
     }
@@ -44,12 +44,12 @@ class MainController (){
             return "pagesVisiteur/rgpd"
         }
     }
-    @GetMapping("/WebMonster/login")
-    fun login(@RequestParam error: Boolean?, model: Model): String {
-        // Ajoute un attribut "error" au modèle si la requête contient une erreur
-        model.addAttribute("error", error == true)
-        return "pagesVisiteur/login"
-    }
+//    @GetMapping("/WebMonster/login")
+//    fun login(@RequestParam error: Boolean?, model: Model): String {
+//        // Ajoute un attribut "error" au modèle si la requête contient une erreur
+//        model.addAttribute("error", error == true)
+//        return "pagesVisiteur/login"
+//    }
     @GetMapping("/WebMonster/profile")
     fun profile(authentication: Authentication): String {
 
@@ -64,5 +64,14 @@ class MainController (){
         // Sinon → on affiche la page profile
         return "pagesClient/profile"
     }
+
+
+
+    @GetMapping("/WebMonster/admin/dashboard")
+    fun dashboard():String{
+        return "pageAdmin/dashboard"
+    }
+
+
 
 }

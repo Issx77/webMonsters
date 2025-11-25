@@ -1,26 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Header Fragment</title>
 </head>
 
 <body>
-<div th:fragment="header">
 
+<!-- FRAGMENT HEADER -->
+<div th:fragment="header">
+    <header>
+        <div class="logo">🎮 MONSTER WEB 🎮</div>
+        <nav>
+
+            <!-- Visible seulement si NON connecté -->
+            <button sec:authorize="isAnonymous()" class="nav-btn" data-page="login">Login</button>
+            <button sec:authorize="isAnonymous()" class="nav-btn" data-page="register">Inscription</button>
+
+            <!-- Visible seulement si connecté -->
+            <button sec:authorize="isAuthenticated()" class="nav-btn" data-page="home">Accueil</button>
+            <button sec:authorize="isAuthenticated()" class="nav-btn" data-page="exploration">Exploration</button>
+            <button sec:authorize="isAuthenticated()" class="nav-btn" data-page="fight">Combat</button>
+            <button sec:authorize="isAuthenticated()" class="nav-btn" data-page="team">Mon Équipe</button>
+            <button sec:authorize="isAuthenticated()" class="nav-btn" data-page="inventory">Inventaire</button>
+
+            <!-- Logout -->
+            <form sec:authorize="isAuthenticated()" action="/logout" method="post">
+                <button class="nav-btn" style="background:#e74c3c">Logout</button>
+            </form>
+
+            <!-- Seulement pour admin -->
+            <div sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
+                <button class="nav-btn">Admin</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/admin/monsters}">Gestion des monstres</a></li>
+                    <li><a class="dropdown-item" th:href="@{/admin/users}">Gestion des utilisateurs</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
 </div>
-<footer th:fragment="footer">
-    <div class="footer-container">
-        <div class="footer-links">
-            <a th:href="@{/WebMonster/a-propos}">À propos</a>
-            <a th:href="@{/WebMonster/contact}">Contact</a>
-            <a th:href="@{/WebMonster/inscription}">Inscription</a>
-            <a th:href="@{/WebMonster/rgpd}">RGPD</a>
+
+
+<!-- FRAGMENT FOOTER -->
+<div th:fragment="footer">
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a th:href="@{/WebMonster/a-propos}">À propos</a>
+                <a th:href="@{/WebMonster/contact}">Contact</a>
+                <a th:href="@{/WebMonster/inscription}">Inscription</a>
+                <a th:href="@{/WebMonster/rgpd}">RGPD</a>
+            </div>
+            <p class="footer-copy">© 2025 Monster Web. Tous droits réservés.</p>
         </div>
-        <p class="footer-copy">© 2025 Monster Web. Tous droits réservés.</p>
-    </div>
-</footer>
+    </footer>
+</div>
 
 </body>
-
 </html>

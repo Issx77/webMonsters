@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
-
 @Configuration
 @EnableMethodSecurity
 class SecurityConfig {
@@ -22,7 +21,7 @@ class SecurityConfig {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-
+            .csrf{it.disable()}
             //Restriction des endpoints en fonction du role
             .authorizeHttpRequests {
                 it.requestMatchers("/WebMonster", "/WebMonster/register", "/WebMonster/login", "/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
@@ -37,8 +36,8 @@ class SecurityConfig {
             // Configuration du formulaire de connexion
             .formLogin { form: FormLoginConfigurer<HttpSecurity?> ->
                 form
-                    .loginPage("/WebMonster/login").defaultSuccessUrl("/WebMonster/profile").failureUrl("/WebMonster/login?error=true")
-
+                    .loginPage("/WebMonster").defaultSuccessUrl("/WebMonster/profile").failureUrl("/WebMonster/login?error=true")
+                    .loginProcessingUrl("/WebMonster/login")
                     .permitAll()
             }
 

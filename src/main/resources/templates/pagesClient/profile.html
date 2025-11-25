@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profil – WebMonster</title>
+    <link rel="stylesheet" href="/css/profil.css">
 </head>
+
 <body>
-<h1>Profile</h1>
+
+<!-- 🔁 HEADER -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="profile-container">
+
+    <!-- TITRE -->
+    <div class="profile-header">
+        <h1>👤 Profil du Dresseur</h1>
+        <p class="player-name">
+            <span th:text="${utilisateur.prenom}">Issa</span>
+            <span th:text="${utilisateur.nom}">Dembele</span>
+        </p>
+    </div>
+
+    <!-- INFOS UTILISATEUR -->
+    <h2 class="section-title">📄 Informations du compte</h2>
+
+    <div class="profile-info">
+        <p><strong>Email :</strong> <span th:text="${utilisateur.email}">issa@example.com</span></p>
+        <p><strong>Rôle :</strong> <span th:text="${utilisateur.role.nom}">USER</span></p>
+        <p><strong>Date de création :</strong> <span th:text="${#temporals.format(utilisateur.dateCreation, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p><strong>Dernière modification :</strong> <span th:text="${#temporals.format(utilisateur.dateModification, 'dd/MM/yyyy HH:mm')}"></span></p>
+    </div>
+
+    <!-- STATS (facultatif) -->
+    <h2 class="section-title">⭐ Statistiques du Dresseur</h2>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-label">Monstres capturés</div>
+            <div class="stat-value" th:text="${monstresCount}">3</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Badges obtenus</div>
+            <div class="stat-value" th:text="${badgesCount}">2</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Pièces d'or</div>
+            <div class="stat-value" th:text="${gold}">500</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 🔁 FOOTER -->
+<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>
