@@ -1,6 +1,6 @@
-package org.ldv.monster.dao
+package org.ldv.monster.model.dao
 
-import org.ldv.monster.model.Utilisateur
+import org.ldv.monster.model.entity.Utilisateur
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 

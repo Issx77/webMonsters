@@ -1,4 +1,4 @@
-package org.ldv.monster.model
+package org.ldv.monster.model.entity
 
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column

@@ -1,4 +1,4 @@
-package org.ldv.monster.entity
+package org.ldv.monster.model.entity
 
 import Joueur
 import jakarta.persistence.*
@@ -12,6 +12,7 @@ class Equipe(
 
     @OneToMany
     var membres: List<Monstre> = listOf(),
+
 
     @OneToOne
     @JoinColumn(name = "joueur_id")

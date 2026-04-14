@@ -1,4 +1,4 @@
-package org.ldv.monster.entity
+package org.ldv.monster.model.entity
 
 import jakarta.persistence.*
 
@@ -12,4 +12,8 @@ class Capacite(
     var nom: String,
     var puissance: Int,
     var type: String
-)
+) {
+    @ManyToOne
+    @JoinColumn(name = "monstre_")
+    open var monstre: Monstre? = null
+}

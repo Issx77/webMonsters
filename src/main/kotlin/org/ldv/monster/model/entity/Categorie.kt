@@ -1,4 +1,4 @@
-package org.ldv.monster.entity
+package org.ldv.monster.model.entity
 
 class Categorie(
     var id: Long?,

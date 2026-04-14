@@ -1,6 +1,6 @@
 import jakarta.persistence.*
-import org.ldv.monster.entity.Equipe
-import org.ldv.monster.entity.Inventaire
+import org.ldv.monster.model.entity.Equipe
+import org.ldv.monster.model.entity.Inventaire
 
 @Entity
 class Joueur(

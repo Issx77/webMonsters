@@ -1,6 +1,6 @@
 package org.ldv.monster.service
 
-import org.ldv.monster.dao.UtilisateurDAO
+import org.ldv.monster.model.dao.UtilisateurDAO
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service

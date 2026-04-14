@@ -1,4 +1,4 @@
-package org.ldv.monster.entity
+package org.ldv.monster.model.entity
 
 import jakarta.persistence.*
 
@@ -14,6 +14,8 @@ class Monstre(
     var niveau: Int,
     var pointsDeVie: Int,
 
-    @OneToMany
-    var capacites: List<Capacite> = listOf()
-)
+
+) {
+    @OneToMany(mappedBy = "monstre", orphanRemoval = true)
+    open var capacites: MutableList<Capacite> = mutableListOf()
+}

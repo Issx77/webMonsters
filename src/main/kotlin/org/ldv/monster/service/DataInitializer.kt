@@ -1,9 +1,9 @@
 package org.ldv.monster.service
 
-import org.ldv.monster.dao.RoleDAO
-import org.ldv.monster.dao.UtilisateurDAO
-import org.ldv.monster.model.Role
-import org.ldv.monster.model.Utilisateur
+import org.ldv.monster.model.dao.RoleDAO
+import org.ldv.monster.model.dao.UtilisateurDAO
+import org.ldv.monster.model.entity.Role
+import org.ldv.monster.model.entity.Utilisateur
 import org.springframework.boot.CommandLineRunner
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
