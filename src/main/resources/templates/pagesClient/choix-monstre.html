@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Choisir ton Monstre – WebMonster</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-logo">🎮 MONSTER WEB</div>
+    <nav class="header-nav">
+        <a class="nav-btn" th:href="@{/WebMonster/equipe}">⚔ Mon Équipe</a>
+        <a class="nav-btn" th:href="@{/WebMonster/attente}">🏟 Jouer</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/WebMonster/logout}" method="post" style="margin:0">
+            <button class="nav-btn danger">Déconnexion</button>
+        </form>
+    </nav>
+</header>
+
+<!-- TITRE -->
+<div class="page-title">⚡ CHOISIR TON MONSTRE ⚡</div>
+<div class="page-subtitle">Sélectionne ton compagnon de combat et donne-lui un nom !</div>
+
+<!-- FILTRES -->
+<div class="filtres">
+    <button class="filtre-btn tous actif" onclick="filtrer('tous', this)">✨ TOUS</button>
+    <button class="filtre-btn feu"        onclick="filtrer('feu', this)">🔥 FEU</button>
+    <button class="filtre-btn eau"        onclick="filtrer('eau', this)">💧 EAU</button>
+    <button class="filtre-btn terre"      onclick="filtrer('terre', this)">🌿 TERRE</button>
+</div>
+
+<!-- FORMULAIRE (hidden, soumis au clic sur "Confirmer") -->
+<form id="formChoix" th:action="@{/WebMonster/choix-monstre}" method="post">
+    <input type="hidden" id="monstreId" name="monstreId" value="">
+
+    <!-- GRILLE DES MONSTRES -->
+    <div class="monstres-grid">
+
+        <!-- FEU -->
+        <div th:each="m : ${monstresFeu}"
+             class="monstre-card type-feu"
+             th:data-id="${m.id}"
+             data-type="feu"
+             onclick="selectionner(this)">
+            <span class="check-icon">✅</span>
+            <div class="type-badge feu">🔥 FEU</div>
+            <div class="monstre-emoji">🦎</div>
+            <div class="monstre-nom" th:text="${m.nom}">Flamigon</div>
+            <div class="monstre-pv" th:text="'PV : ' + ${m.pointsDeVie}">PV : 45</div>
+        </div>
+
+        <!-- EAU -->
+        <div th:each="m : ${monstresEau}"
+             class="monstre-card type-eau"
+             th:data-id="${m.id}"
+             data-type="eau"
+             onclick="selectionner(this)">
+            <span class="check-icon">✅</span>
+            <div class="type-badge eau">💧 EAU</div>
+            <div class="monstre-emoji">🐢</div>
+            <div class="monstre-nom" th:text="${m.nom}">Aquarex</div>
+            <div class="monstre-pv" th:text="'PV : ' + ${m.pointsDeVie}">PV : 44</div>
+        </div>
+
+        <!-- TERRE -->
+        <div th:each="m : ${monstresEarth}"
+             class="monstre-card type-terre"
+             th:data-id="${m.id}"
+             data-type="terre"
+             onclick="selectionner(this)">
+            <span class="check-icon">✅</span>
+            <div class="type-badge terre">🌿 TERRE</div>
+            <div class="monstre-emoji">🦕</div>
+            <div class="monstre-nom" th:text="${m.nom}">Terroc</div>
+            <div class="monstre-pv" th:text="'PV : ' + ${m.pointsDeVie}">PV : 45</div>
+        </div>
+
+    </div>
+
+    <!-- ZONE DE RENOMMAGE (apparaît après sélection) -->
+    <div class="form-nom" id="zoneNom">
+        <label for="nomPerso">✏️ Donne un surnom à ton monstre :</label>
+        <input type="text" id="nomPerso" name="nomPerso"
+               placeholder="Ex : Drako, Bulle, Rocky…"
+               maxlength="20">
+        <button type="submit" class="btn-confirmer">✅ Confirmer mon choix</button>
+    </div>
+
+</form>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-links">
+        <a th:href="@{/WebMonster/a-propos}">À propos</a>
+        <a th:href="@{/WebMonster/contact}">Contact</a>
+        <a th:href="@{/WebMonster/rgpd}">RGPD</a>
+    </div>
+    <p class="footer-copy">© 2025 Monster Web. Tous droits réservés.</p>
+</footer>
+
+<script>
+    function selectionner(card) {
+        // Désélectionne les autres
+        document.querySelectorAll('.monstre-card').forEach(c => c.classList.remove('selectionne'));
+        card.classList.add('selectionne');
+
+        // Met l'id dans le champ caché
+        document.getElementById('monstreId').value = card.dataset.id;
+
+        // Pré-remplit le nom avec le nom du monstre
+        const nomMonstre = card.querySelector('.monstre-nom').textContent;
+        document.getElementById('nomPerso').placeholder = 'Ex : ' + nomMonstre + ' Jr, Super ' + nomMonstre + '…';
+
+        // Affiche la zone de renommage
+        document.getElementById('zoneNom').classList.add('visible');
+        document.getElementById('zoneNom').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function filtrer(type, btn) {
+        // Met à jour les boutons
+        document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('actif'));
+        btn.classList.add('actif');
+
+        // Affiche/cache les cartes
+        document.querySelectorAll('.monstre-card').forEach(card => {
+            if (type === 'tous' || card.dataset.type === type) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+                card.classList.remove('selectionne');
+            }
+        });
+
+        // Cache le formulaire si le monstre sélectionné est masqué
+        const selected = document.querySelector('.monstre-card.selectionne');
+        if (!selected) {
+            document.getElementById('zoneNom').classList.remove('visible');
+            document.getElementById('monstreId').value = '';
+        }
+    }
+</script>
+
+</body>
+</html>

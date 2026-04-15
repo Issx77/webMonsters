@@ -1,6 +1,5 @@
 package org.ldv.monster.model.entity
 
-import Joueur
 import jakarta.persistence.*
 
 @Entity
@@ -10,9 +9,8 @@ class Equipe(
     @Column(nullable = false)
     var id: Long? = null,
 
-    @OneToMany
-    var membres: List<Monstre> = listOf(),
-
+    @OneToMany(mappedBy = "equipe", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var membres: MutableList<MembreEquipe> = mutableListOf(),
 
     @OneToOne
     @JoinColumn(name = "joueur_id")

@@ -1,6 +1,6 @@
+package org.ldv.monster.model.entity
+
 import jakarta.persistence.*
-import org.ldv.monster.model.entity.Equipe
-import org.ldv.monster.model.entity.Inventaire
 
 @Entity
 class Joueur(
@@ -10,11 +10,15 @@ class Joueur(
     var id: Long? = null,
 
     var pseudo: String,
-    var niveau: Int,
+    var niveau: Int = 1,
 
     @OneToOne(mappedBy = "joueur", cascade = [CascadeType.ALL])
     var inventaire: Inventaire? = null,
 
     @OneToOne(mappedBy = "joueur", cascade = [CascadeType.ALL])
-    var equipe: Equipe? = null
+    var equipe: Equipe? = null,
+
+    @OneToOne
+    @JoinColumn(name = "utilisateur_id")
+    var utilisateur: Utilisateur? = null
 )

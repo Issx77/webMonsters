@@ -1,9 +1,13 @@
 package org.ldv.monster.model.entity
 
+import jakarta.persistence.*
+
+@Entity
 class Categorie(
-    var id: Long?,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    var id: Long? = null,
+
     var nom: String,
-
-    ) {
-
-}
+)

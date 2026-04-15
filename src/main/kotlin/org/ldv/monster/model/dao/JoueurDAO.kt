@@ -1,6 +1,8 @@
 package org.ldv.monster.model.dao
 
-import org.springframework.data.repository.Repository
+import org.ldv.monster.model.entity.Joueur
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface JoueurDAO : Repository<Joueur, Long> {
+interface JoueurDAO : JpaRepository<Joueur, Long> {
+    fun findByUtilisateurEmail(email: String): Joueur?
 }

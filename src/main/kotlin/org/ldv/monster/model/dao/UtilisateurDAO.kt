@@ -8,6 +8,6 @@ interface UtilisateurDAO : JpaRepository<Utilisateur, Long> {
 
 
     @Query("select u from Utilisateur u where u.email = ?1")
-    fun findByEmail(email: String): Utilisateur
+    fun findByEmail(email: String): Utilisateur?
 
 }

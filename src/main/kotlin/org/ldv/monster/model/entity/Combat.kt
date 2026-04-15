@@ -1,5 +1,6 @@
+package org.ldv.monster.model.entity
+
 import jakarta.persistence.*
-import org.ldv.monster.model.entity.Monstre
 
 @Entity
 class Combat(
@@ -10,15 +11,12 @@ class Combat(
 
     var tourActuel: Int,
 
-
-
-
 ) {
     @ManyToOne
-    @JoinColumn(name = "monstre_id")
-    open var monstreJoueur: Monstre? = null
+    @JoinColumn(name = "monstre_joueur_id")
+    var monstreJoueur: Monstre? = null
 
     @ManyToOne
-    @JoinColumn(name = "monstre_id")
-    open var monstreAdverse: Monstre? = null
+    @JoinColumn(name = "monstre_adverse_id")
+    var monstreAdverse: Monstre? = null
 }

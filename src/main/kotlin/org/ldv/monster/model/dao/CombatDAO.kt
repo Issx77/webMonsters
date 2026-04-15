@@ -1,6 +1,7 @@
 package org.ldv.monster.model.dao
 
-import org.springframework.data.repository.Repository
+import org.ldv.monster.model.entity.Combat
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface CombatDAO : Repository<Combat, Long> {
+interface CombatDAO : JpaRepository<Combat, Long> {
 }

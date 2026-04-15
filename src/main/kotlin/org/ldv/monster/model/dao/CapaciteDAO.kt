@@ -1,7 +1,6 @@
 package org.ldv.monster.model.dao
 
 import org.ldv.monster.model.entity.Capacite
-import org.springframework.data.repository.Repository
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface CapaciteDAO : Repository<Capacite, Long> {
-}
+interface CapaciteDAO : JpaRepository<Capacite, Long>

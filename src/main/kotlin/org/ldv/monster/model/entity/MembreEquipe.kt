@@ -3,17 +3,20 @@ package org.ldv.monster.model.entity
 import jakarta.persistence.*
 
 @Entity
-class Capacite(
+class MembreEquipe(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     var id: Long? = null,
 
-    var nom: String,
-    var puissance: Int,
-    var type: String
-) {
+    var nomPerso: String = "",
+    var niveau: Int = 1,
+
     @ManyToOne
     @JoinColumn(name = "monstre_id")
-    var monstre: Monstre? = null
-}
+    var monstre: Monstre? = null,
+
+    @ManyToOne
+    @JoinColumn(name = "equipe_id")
+    var equipe: Equipe? = null
+)

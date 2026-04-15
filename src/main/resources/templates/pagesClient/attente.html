@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Salle d'Attente – WebMonster</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-logo">🎮 MONSTER WEB</div>
+    <nav class="header-nav">
+        <a class="nav-btn" th:href="@{/WebMonster/equipe}">⚔ Mon Équipe</a>
+        <a class="nav-btn" th:href="@{/WebMonster/choix-monstre}">➕ Ajouter</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/WebMonster/logout}" method="post" style="margin:0">
+            <button class="nav-btn danger">Déconnexion</button>
+        </form>
+    </nav>
+</header>
+
+<!-- TITRE -->
+<div class="page-title">🏟 SALLE D'ATTENTE 🏟</div>
+<div class="page-subtitle"
+     th:text="'Dresseur : ' + ${joueur.pseudo} + '  —  ' + ${#lists.size(membres)} + ' monstre(s) en équipe'">
+    Dresseur : Jean — 1 monstre(s) en équipe
+</div>
+
+<div class="attente-container">
+
+    <!-- STATUT -->
+    <div class="attente-status">
+        ⏳ En attente d'un adversaire…
+    </div>
+
+    <!-- BOUTONS PRINCIPAUX -->
+    <div>
+        <button class="btn-action btn-equipe" onclick="toggleEquipe()">👁 Voir mon équipe</button>
+        <a class="btn-action btn-jouer" href="#">🎮 Lancer une partie</a>
+        <a class="btn-action btn-ajouter" th:href="@{/WebMonster/choix-monstre}">➕ Ajouter un monstre</a>
+    </div>
+
+    <!-- ÉQUIPE DÉPLIABLE -->
+    <div class="equipe-mini" id="equipeMini">
+        <div class="equipe-mini-titre">⚔ Ton équipe :</div>
+
+        <div class="equipe-grid" th:if="${not #lists.isEmpty(membres)}">
+            <div class="membre-card" th:each="m : ${membres}">
+                <div class="monstre-emoji"
+                     th:text="${m.monstre.type == 'FEU'} ? '🦎' : (${m.monstre.type == 'EAU'} ? '🐢' : '🦕')">
+                    🦎
+                </div>
+                <div class="type-badge"
+                     th:classappend="${m.monstre.type == 'FEU'} ? 'feu' : (${m.monstre.type == 'EAU'} ? 'eau' : 'terre')"
+                     th:text="${m.monstre.type == 'FEU'} ? '🔥 FEU' : (${m.monstre.type == 'EAU'} ? '💧 EAU' : '🌿 TERRE')">
+                    🔥 FEU
+                </div>
+                <div class="membre-nom-perso" th:text="${m.nomPerso}">Drako</div>
+                <div class="membre-nom-base"  th:text="'(' + ${m.monstre.nom} + ')'">( Flamigon )</div>
+                <div class="membre-niveau"    th:text="'⭐ Niveau ' + ${m.niveau}">⭐ Niveau 1</div>
+                <div class="membre-pv"        th:text="'PV : ' + ${m.monstre.pointsDeVie}">PV : 45</div>
+            </div>
+        </div>
+
+        <div class="vide-msg" th:if="${#lists.isEmpty(membres)}">
+            😢 Équipe vide — <a th:href="@{/WebMonster/choix-monstre}" style="color:#ffd700">Choisir un monstre</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-links">
+        <a th:href="@{/WebMonster/a-propos}">À propos</a>
+        <a th:href="@{/WebMonster/contact}">Contact</a>
+        <a th:href="@{/WebMonster/rgpd}">RGPD</a>
+    </div>
+    <p class="footer-copy">© 2025 Monster Web. Tous droits réservés.</p>
+</footer>
+
+<script>
+    function toggleEquipe() {
+        const zone = document.getElementById('equipeMini');
+        zone.classList.toggle('visible');
+    }
+</script>
+
+</body>
+</html>

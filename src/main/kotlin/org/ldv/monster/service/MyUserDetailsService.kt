@@ -3,6 +3,7 @@ package org.ldv.monster.service
 import org.ldv.monster.model.dao.UtilisateurDAO
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 
@@ -32,6 +33,7 @@ class MyUserDetailsService(private val utilisateurDAO: UtilisateurDAO) : UserDet
          * UsernameNotFoundException.
          */
         val utilisateur = utilisateurDAO.findByEmail(username)
+            ?: throw UsernameNotFoundException("Utilisateur introuvable : $username")
 
         /**
          * Logique d'attribution du rôle.
@@ -40,7 +42,7 @@ class MyUserDetailsService(private val utilisateurDAO: UtilisateurDAO) : UserDet
          * - on récupère le nom du rôle associé à l'utilisateur (ex: "ADMIN", "CLIENT").
          * - Ce rôle doit être une chaîne compatible avec Spring Security.
          */
-        val leRole = utilisateur.role?.nom
+        val leRole = utilisateur.role?.nom ?: throw UsernameNotFoundException("Rôle introuvable pour : $username")
 
         /**
          * Exemple alternatif (commenté) si tu utilises un héritage :
@@ -72,7 +74,7 @@ class MyUserDetailsService(private val utilisateurDAO: UtilisateurDAO) : UserDet
         return org.springframework.security.core.userdetails.User
             .withUsername(utilisateur.email)   // Identifiant de connexion
             .password(utilisateur.mdp)         // Mot de passe hashé
-            .roles(leRole)                     // Rôle(s) attribué(s)
+            .roles(leRole)                     // Rôle(s) attribué(s) — non-null garanti
             .build()
     }
 }

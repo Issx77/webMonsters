@@ -1,7 +1,8 @@
 package org.ldv.monster.model.dao
 
 import org.ldv.monster.model.entity.Monstre
-import org.springframework.data.repository.Repository
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface MonstreDAO : Repository<Monstre, Long> {
+interface MonstreDAO : JpaRepository<Monstre, Long> {
+    fun findByType(type: String): List<Monstre>
 }

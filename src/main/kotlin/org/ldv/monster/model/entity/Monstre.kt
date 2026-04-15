@@ -17,5 +17,5 @@ class Monstre(
 
 ) {
     @OneToMany(mappedBy = "monstre", orphanRemoval = true)
-    open var capacites: MutableList<Capacite> = mutableListOf()
+    var capacites: MutableList<Capacite> = mutableListOf()
 }
